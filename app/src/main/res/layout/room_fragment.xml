@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimaryDark">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/castle1"
+                android:layout_margin="10dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="45"
+                android:id="@+id/score1"
+                android:textColor="#FFD600"
+                android:layout_gravity="center"/>
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/coinn"
+                />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/castle2"
+                android:layout_margin="10dp"
+
+                />
+            <TextView
+                android:id="@+id/score2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20"
+                android:textColor="#FFD600"
+                android:layout_gravity="center"/>
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/coinn"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/castle3"
+                android:layout_margin="10dp"
+                />
+
+            <TextView
+                android:id="@+id/score3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="50"
+                android:textColor="#FFD600"
+                android:layout_gravity="center"/>
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/coinn"
+                />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/castle4"
+                android:layout_margin="10dp"
+
+                />
+            <TextView
+                android:id="@+id/score4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="35"
+                android:textColor="#FFD600"
+                android:layout_gravity="center"/>
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/coinn"
+                />
+
+        </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="10dp"
+
+            android:orientation="vertical"
+            >
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="رقم المرحله 5 "
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="دور الفريق الاخضر "
+                android:textColor="#FFFF"
+                android:id="@+id/turn"
+                android:textStyle="bold"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_gravity="end"
+        android:layout_margin="10dp"
+        android:id="@+id/question"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="الاليكترون داخل الذره..."/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <Button
+            android:id="@+id/answer1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/choose_answer"
+            android:text="حر ويخضع للفيزياء الكلاسيكيه"
+            android:textColor="#FFFF"
+            android:layout_margin="10dp"/>
+        <Button
+            android:id="@+id/answer2"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/choose_answer"
+            android:text="حر ويخضع للفيزياء الكلاسيكيه"
+            android:textColor="#FFFF"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <Button
+            android:id="@+id/answer3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/choose_answer"
+            android:text="حر ويخضع للفيزياء الكلاسيكيه"
+            android:textColor="#FFFF"
+            android:layout_margin="10dp"/>
+        <Button
+            android:id="@+id/answer4"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/choose_answer"
+            android:text="حر ويخضع للفيزياء الكلاسيكيه"
+            android:textColor="#FFFF"/>
+    </LinearLayout>
+</LinearLayout>
