@@ -10,6 +10,8 @@ public class Teams {
     private String macAddress;
     private String state;
 
+    private String teamName;
+
 
     public String getTeamId() {
         return teamId;
@@ -33,5 +35,13 @@ public class Teams {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getTeamName() {
+        return teamName;
+    }
+
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 }

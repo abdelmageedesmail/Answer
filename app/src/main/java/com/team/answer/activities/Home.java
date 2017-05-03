@@ -2,10 +2,13 @@ package com.team.answer.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,10 +34,12 @@ import com.pusher.client.PusherOptions;
 import com.pusher.client.channel.Channel;
 import com.pusher.client.channel.SubscriptionEventListener;
 import com.team.answer.R;
+import com.team.answer.adapter.TeamAdapter;
 import com.team.answer.models.GetUserRegisterServices;
 import com.team.answer.models.Teams;
 import com.team.answer.models.UtilitiesClass;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -58,21 +63,19 @@ public class Home extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference posts;
     HashMap<String, Teams> results;
+    ArrayList<Teams> teamsList;
+    RecyclerView recyclerView;
+    static String teamname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         teamName = (TextView) findViewById(R.id.teamName);
-        team1 = (TextView) findViewById(R.id.team1);
-        team2 = (TextView) findViewById(R.id.team2);
-        team3 = (TextView) findViewById(R.id.team3);
+        recyclerView = (RecyclerView) findViewById(R.id.teamLists);
         start = (Button) findViewById(R.id.start);
-
+        teamsList = new ArrayList<>();
         UtilitiesClass.setFont(teamName, Home.this, 0);
-        UtilitiesClass.setFont(team1, Home.this, 0);
-        UtilitiesClass.setFont(team2, Home.this, 0);
-        UtilitiesClass.setFont(team3, Home.this, 0);
         UtilitiesClass.setFont(start, Home.this, 0);
 
 
@@ -102,7 +105,7 @@ public class Home extends AppCompatActivity {
                     });
 
                 }
-                    List<Teams> posts = new ArrayList<>(results.values());
+                List<Teams> posts = new ArrayList<>(results.values());
 
 
                 Set uniqueEntries = new HashSet();
@@ -112,21 +115,31 @@ public class Home extends AppCompatActivity {
                         iter.remove();                 // remove it
                 }
 
-                for (int i=0;i<posts.size();i++) {
-                    if (posts.get(i).getTeamId().equals(String.valueOf(StartGame.frmButton))){
-                        Log.e("teamId",posts.get(i).getTeamId());
-                    }else {
-                        if (posts.contains("2")) {
-                            team1.setText("الفريق الاحمر جاهز");
-                        }
-                        if (posts.contains("3")) {
-                            team1.setText("الفريق الاخضر جاهز");
-                        }if (posts.contains("4")) {
-                            team1.setText("الفريق الاصفر جاهز");
+                JSONArray jsArray = new JSONArray(posts);
+                for (int i = 0; i < posts.size(); i++) {
+                    Teams teams1 = new Teams();
+                    String teamId = posts.get(i).getTeamId();
+                    if (teamId.equals("1")) {
+                        teamname = "الفريق الاصفر";
+                    } else if (teamId.equals("2")) {
+                        teamname = "الفريق الاحمر";
+                    } else if (teamId.equals("3")) {
+                        teamname = "الفريق الاخضر";
+                    } else if (teamId.equals("4")) {
+                        teamname = "الفريق الازرق";
+                    }
+                    teams1.setTeamName(teamname);
+                    teams1.setTeamId(teamId);
+                    teamsList.add(teams1);
+
+                    for (int j = 0; j < teamsList.size(); j++) {
+                        if (teamsList.get(j).getTeamId().equals(String.valueOf(StartGame.frmButton))) {
+                            teamsList.remove(j);
                         }
                     }
                 }
-
+                recyclerView.setAdapter(new TeamAdapter(Home.this, teamsList));
+                recyclerView.setLayoutManager(new LinearLayoutManager(Home.this, LinearLayoutManager.VERTICAL, false));
             }
 
             @Override
@@ -174,7 +187,12 @@ public class Home extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (teamsList.size() < 4) {
+                    Toast.makeText(Home.this, "برجاء انتظار باقي الفرق", Toast.LENGTH_SHORT).show();
+                }else {
+                    startActivity(new Intent(Home.this,GameHome.class));
+                    finish();
+                }
             }
         });
         //    sendMacAddress();
@@ -232,14 +250,14 @@ public class Home extends AppCompatActivity {
         applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot appleSnapshot : dataSnapshot.getChildren()) {
                     appleSnapshot.getRef().removeValue();
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.e( "onCancelled",""+ databaseError.toException());
+                Log.e("onCancelled", "" + databaseError.toException());
             }
         });
     }
