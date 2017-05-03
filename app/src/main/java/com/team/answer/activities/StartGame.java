@@ -43,22 +43,22 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
         switch (id){
             case R.id.yellowTeam:
                 frmButton=1;
-                startActivity(new Intent(StartGame.this,GameHome.class));
+                startActivity(new Intent(StartGame.this,Home.class));
                 overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
                 break;
             case R.id.redTeam:
                 frmButton=2;
-                startActivity(new Intent(StartGame.this,GameHome.class));
+                startActivity(new Intent(StartGame.this,Home.class));
                 overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
                 break;
             case R.id.greenTeam:
                 frmButton=3;
-                startActivity(new Intent(StartGame.this,GameHome.class));
+                startActivity(new Intent(StartGame.this,Home.class));
                 overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
                 break;
             case R.id.blueTeam:
                 frmButton=4;
-                startActivity(new Intent(StartGame.this,GameHome.class));
+                startActivity(new Intent(StartGame.this,Home.class));
                 overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
                 break;
         }

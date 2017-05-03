@@ -34,34 +34,34 @@ public class GetUserRegisterServices extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        if (GameHome.isDestroy){
-
-            WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-            WifiInfo wInfo = wifiManager.getConnectionInfo();
-            macAddress = wInfo.getMacAddress();
-
-            StringRequest stringRequest=new StringRequest(Request.Method.POST, "http://ahmedgame.comeze.com/game/index.php/question/online", new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Log.e("response",response);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e("errorResponse",""+error.getMessage());
-                }
-            }){
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    Map<String,String> param=new HashMap<>();
-                    param.put("mac_address",macAddress);
-                    param.put("team_id",String.valueOf(StartGame.frmButton));
-                    param.put("state","0");
-                    return param;
-                }
-            };
-            Volley.newRequestQueue(SplashActivity.activity).add(stringRequest);
-        }
+//        if (GameHome.isDestroy){
+//
+//            WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+//            WifiInfo wInfo = wifiManager.getConnectionInfo();
+//            macAddress = wInfo.getMacAddress();
+//
+//            StringRequest stringRequest=new StringRequest(Request.Method.POST, "http://ahmedgame.comeze.com/game/index.php/question/online", new Response.Listener<String>() {
+//                @Override
+//                public void onResponse(String response) {
+//                    Log.e("response",response);
+//                }
+//            }, new Response.ErrorListener() {
+//                @Override
+//                public void onErrorResponse(VolleyError error) {
+//                    Log.e("errorResponse",""+error.getMessage());
+//                }
+//            }){
+//                @Override
+//                protected Map<String, String> getParams() throws AuthFailureError {
+//                    Map<String,String> param=new HashMap<>();
+//                    param.put("mac_address",macAddress);
+//                    param.put("team_id",String.valueOf(StartGame.frmButton));
+//                    param.put("state","0");
+//                    return param;
+//                }
+//            };
+//            Volley.newRequestQueue(SplashActivity.activity).add(stringRequest);
+//        }
 
     }
 }

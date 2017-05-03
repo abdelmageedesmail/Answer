@@ -3,7 +3,8 @@
     package="com.team.answer">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logo"
@@ -21,7 +22,9 @@
         <activity android:name=".activities.StartGame" />
         <activity android:name=".activities.GameHome" />
 
-        <service android:name=".models.GetUserRegisterServices"/>
+        <service android:name=".models.GetUserRegisterServices" />
+
+        <activity android:name=".activities.Home"></activity>
     </application>
 
 </manifest>
