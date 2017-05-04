@@ -250,13 +250,7 @@ public class RoomFragment extends Fragment {
 
                         @Override
                         public void onClick(View v) {
-                            status = false;
-                            answer1.setEnabled(status);
-                            answer2.setEnabled(status);
-                            answer3.setEnabled(status);
-                            answer4.setEnabled(status);
-                            mTimer.setVisibility(View.INVISIBLE);
-                            mProgressbar.setVisibility(View.INVISIBLE);
+
                             checkAnswer(correctAnswer, answer1.getText().toString(), answer1);
                             onFinish();
                         }
@@ -267,6 +261,13 @@ public class RoomFragment extends Fragment {
 
                 @Override
                 public void onFinish() {
+                    status = false;
+                    answer1.setEnabled(status);
+                    answer2.setEnabled(status);
+                    answer3.setEnabled(status);
+                    answer4.setEnabled(status);
+                    mTimer.setVisibility(View.INVISIBLE);
+                    mProgressbar.setVisibility(View.INVISIBLE);
                     cancel();
                     i++;
                     status = true;

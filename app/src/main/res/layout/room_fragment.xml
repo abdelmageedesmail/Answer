@@ -232,12 +232,14 @@
 
         <ProgressBar
             android:id="@+id/progressBar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_gravity="center"
             android:max="30"
+            android:progress="-1"
+            style="@style/Widget.AppCompat.ProgressBar"
             android:indeterminate="true"
-            android:background="@drawable/circ"
+            android:indeterminateDrawable="@drawable/circ"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
 

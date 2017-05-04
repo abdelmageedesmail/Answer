@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android"
 >
+
     <item android:id="@+id/bg">
         <shape android:shape="ring"
             android:innerRadiusRatio="3"
@@ -12,15 +13,24 @@
 </shape>
     </item>
     <item android:id="@+id/progbar">
+        <rotate android:fromDegrees="0"
+            android:toDegrees="360"
+            >
         <shape android:shape="ring"
             android:innerRadiusRatio="3"
             android:thickness="5dp"
-            android:useLevel="true"
+            android:useLevel="false"
 
             >
-            <solid android:color="@color/colorPrimaryDark"></solid>
+            <gradient android:color="@android:color/transparent"
+                android:startColor="@color/colorPrimaryDark"
+                android:angle="0"
+                android:type="sweep"
+
+                />
 
         </shape>
-    </item>
+</rotate>
+</item>
 
 </layer-list>
