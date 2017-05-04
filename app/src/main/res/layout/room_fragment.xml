@@ -236,7 +236,6 @@
             android:layout_height="200dp"
             android:layout_gravity="center"
             android:max="30"
-            android:progress="-1"
             style="@style/Widget.AppCompat.ProgressBar"
             android:indeterminate="true"
             android:indeterminateDrawable="@drawable/circ"
