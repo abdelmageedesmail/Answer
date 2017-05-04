@@ -181,123 +181,131 @@ public class RoomFragment extends Fragment {
         System.out.println("size is:"+mData.size());
        // int i=0;
 
-        //while (i<mData.size()-1){
 
-            QueData queData = mData.get(0);
-            Toast.makeText(getActivity(),queData.getQuestion(), Toast.LENGTH_SHORT).show();
+
+            QueData queData = mData.get(i);
             String question = queData.getQuestion();
             mQuestion.setText(question);
             answer1.setText(queData.getChoices()[0]);
             answer2.setText(queData.getChoices()[1]);
             answer3.setText(queData.getChoices()[2]);
             answer4.setText(queData.getChoices()[3]);
-            title.setText(queData.getLevel());
-            final  String  correctAnswer = queData.getAnswer();
+            title.setText("المستوى: "+queData.getLevel());
+            final String correctAnswer = queData.getAnswer();
 
             final CountDownTimer timer = new CountDownTimer(30000, 1000) {
 
 
-                
-                public boolean status=true;
+                public boolean status = true;
 
 
-            @Override
-            public void onTick(long millisUntilFinished) {
+                @Override
+                public void onTick(long millisUntilFinished) {
 
-                mTimer.setText(millisUntilFinished/1000+"");
-                answer4.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        status=false;
-                        answer1.setEnabled(status);
-                        answer3.setEnabled(status);
-                        answer2.setEnabled(status);
-                        mTimer.setEnabled(status);
-                        mProgressbar.setEnabled(status);
-                        checkAnswer(correctAnswer,answer4.getText().toString(),answer4);
-                        onFinish();
-                    }
-                });
-                answer3.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        status=false;
-                        answer1.setEnabled(status);
-                        answer2.setEnabled(status);
-                        answer4.setEnabled(status);
-                        mTimer.setEnabled(status);
-                        mProgressbar.setEnabled(status);
-                        checkAnswer(correctAnswer,answer3.getText().toString(),answer3);
-                        onFinish();
-                    }
-                });
-                answer2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        status=false;
-                        answer1.setEnabled(status);
-                        answer3.setEnabled(status);
-                        answer4.setEnabled(status);
-                        mTimer.setEnabled(status);
-                        mProgressbar.setEnabled(status);
-                        checkAnswer(correctAnswer,answer2.getText().toString(),answer2);
-                        onFinish();
-                    }
-                });
-                answer1.setOnClickListener(new View.OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View v) {
-                        status=false;
-                        answer2.setEnabled(status);
-                        answer3.setEnabled(status);
-                        answer4.setEnabled(status);
-                        mTimer.setEnabled(status);
-                        mProgressbar.setEnabled(status);
-                        checkAnswer(correctAnswer,answer1.getText().toString(),answer1);
-                        onFinish();
-                    }
-                });
+                    mTimer.setText(millisUntilFinished / 1000 + "");
+                    answer4.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            status = false;
+                            answer1.setEnabled(status);
+                            answer3.setEnabled(status);
+                            answer2.setEnabled(status);
+                            answer4.setEnabled(status);
+                            mTimer.setVisibility(View.INVISIBLE);
+                            mProgressbar.setVisibility(View.INVISIBLE);
+                            checkAnswer(correctAnswer, answer4.getText().toString(), answer4);
+                            onFinish();
+                        }
+                    });
+                    answer3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            status = false;
+                            answer1.setEnabled(status);
+                            answer2.setEnabled(status);
+                            answer3.setEnabled(status);
+                            answer4.setEnabled(status);
+                            mTimer.setVisibility(View.INVISIBLE);
+                            mProgressbar.setVisibility(View.INVISIBLE);
+                            checkAnswer(correctAnswer, answer3.getText().toString(), answer3);
+                            onFinish();
+                        }
+                    });
+                    answer2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            status = false;
+                            answer1.setEnabled(status);
+                            answer2.setEnabled(status);
+                            answer3.setEnabled(status);
+                            answer4.setEnabled(status);
+                            mTimer.setVisibility(View.INVISIBLE);
+                            mProgressbar.setVisibility(View.INVISIBLE);
+                            checkAnswer(correctAnswer, answer2.getText().toString(), answer2);
+                            onFinish();
+                        }
+                    });
+                    answer1.setOnClickListener(new View.OnClickListener() {
 
 
+                        @Override
+                        public void onClick(View v) {
+                            status = false;
+                            answer1.setEnabled(status);
+                            answer2.setEnabled(status);
+                            answer3.setEnabled(status);
+                            answer4.setEnabled(status);
+                            mTimer.setVisibility(View.INVISIBLE);
+                            mProgressbar.setVisibility(View.INVISIBLE);
+                            checkAnswer(correctAnswer, answer1.getText().toString(), answer1);
+                            onFinish();
+                        }
+                    });
 
-            }
 
-            @Override
-            public void onFinish() {
-            i++;
-            status=true;
-            }
+                }
+
+                @Override
+                public void onFinish() {
+                    cancel();
+                    i++;
+                    status = true;
+                    System.out.println(i);
+
+                }
 
 
-        };
+            };
 
-        timer.start();
+            timer.start();
+        }
 
 
-    }
 
 
 
     private void checkAnswer(String correctAnswer,String user_answer,Button ans) {
 
         if (user_answer.equalsIgnoreCase(correctAnswer)){
+            ans.setBackgroundColor(getResources().getColor(R.color.correct));
            int team= StartGame.frmButton ;
             if (team==1){
-                score1.setText(""+scoret1++);
-                ans.setBackgroundColor(getResources().getColor(R.color.correct));
+                scoret1++;
+                score1.setText(""+scoret1);
 
 
             }
             else if (team==2){
-                score2.setText(""+scoret2++);
+                scoret2++;
+                score2.setText(""+scoret2);
             }
             else if (team==3){
-                score3.setText(""+scoret3++);
+                scoret3++;
+                score3.setText(""+scoret3);
             }
             else if(team==4){
-                score4.setText(""+scoret4++);
+                scoret4++;
+                score4.setText(""+scoret4);
             }
         }
         else {

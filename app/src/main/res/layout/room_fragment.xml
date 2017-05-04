@@ -236,6 +236,7 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:max="30"
+            android:indeterminate="true"
             android:background="@drawable/circ"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
