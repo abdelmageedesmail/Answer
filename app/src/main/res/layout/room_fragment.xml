@@ -25,7 +25,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="45"
+                android:text="0"
                 android:id="@+id/score1"
                 android:textColor="#FFD600"
                 android:layout_gravity="center"/>
@@ -48,7 +48,7 @@
                 android:id="@+id/score2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="20"
+                android:text="0"
                 android:textColor="#FFD600"
                 android:layout_gravity="center"/>
             <ImageView
@@ -75,7 +75,7 @@
                 android:id="@+id/score3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="50"
+                android:text="0"
                 android:textColor="#FFD600"
                 android:layout_gravity="center"/>
             <ImageView
@@ -97,7 +97,7 @@
                 android:id="@+id/score4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="35"
+                android:text="0"
                 android:textColor="#FFD600"
                 android:layout_gravity="center"/>
             <ImageView
@@ -120,17 +120,9 @@
             android:layout_marginLeft="10dp"
 
             android:orientation="vertical"
-            >
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="رقم المرحله 5 "
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"
-            android:layout_gravity="center"/>
+            ><![CDATA[
 
-            <TextView
+            TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="دور الفريق الاخضر "
@@ -138,7 +130,20 @@
                 android:id="@+id/turn"
                 android:textStyle="bold"
                 />
-        </LinearLayout>
+        ]]></LinearLayout>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="top"
+            android:layout_marginTop="10dp"
+            android:text="المرحله  5"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <TextView
@@ -200,5 +205,40 @@
             android:background="@drawable/choose_answer"
             android:text="حر ويخضع للفيزياء الكلاسيكيه"
             android:textColor="#FFFF"/>
+
     </LinearLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+
+
+        >
+        <TextView
+            android:id="@+id/timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+
+
+            android:text="30"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:max="30"
+            android:background="@drawable/circ"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
 </LinearLayout>

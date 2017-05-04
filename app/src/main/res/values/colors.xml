@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#307C32</color>
     <color name="colorAccent">#C5E1A6</color>
     <color name="button_color">#307C32</color>
+    <color name="correct">#2056e8</color>
+    <color name="wrong">#eb0000</color>
 </resources>

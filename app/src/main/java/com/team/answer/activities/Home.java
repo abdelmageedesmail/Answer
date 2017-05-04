@@ -188,7 +188,9 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (teamsList.size() < 4) {
-                    Toast.makeText(Home.this, "برجاء انتظار باقي الفرق", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(Home.this, "برجاء انتظار باقي الفرق", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(Home.this,GameHome.class));
+                    finish();
                 }else {
                     startActivity(new Intent(Home.this,GameHome.class));
                     finish();

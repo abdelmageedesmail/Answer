@@ -40,25 +40,35 @@ public class StartGame extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
      int id=v.getId();
+        Intent intent = new Intent(StartGame.this, Home.class);
+
         switch (id){
             case R.id.yellowTeam:
                 frmButton=1;
-                startActivity(new Intent(StartGame.this,Home.class));
+                intent.putExtra("team_name",yellowTeam.getText().toString());
+                intent.putExtra("id",1);
+                startActivity(intent);
                 overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
                 break;
             case R.id.redTeam:
                 frmButton=2;
-                startActivity(new Intent(StartGame.this,Home.class));
+                intent.putExtra("team_name",redTeam.getText().toString());
+                intent.putExtra("id",2);
+                startActivity(intent);
                 overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
                 break;
             case R.id.greenTeam:
                 frmButton=3;
-                startActivity(new Intent(StartGame.this,Home.class));
+                intent.putExtra("team_name",greenTeam.getText().toString());
+                intent.putExtra("id",3);
+                startActivity(intent);
                 overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
                 break;
             case R.id.blueTeam:
                 frmButton=4;
-                startActivity(new Intent(StartGame.this,Home.class));
+                intent.putExtra("team_name",blueTeam.getText().toString());
+                intent.putExtra("id",4);
+                startActivity(intent);
                 overridePendingTransition(R.anim.slide_down, R.anim.slide_up);
                 break;
         }
