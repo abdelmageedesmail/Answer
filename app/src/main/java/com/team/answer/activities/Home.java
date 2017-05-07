@@ -1,10 +1,12 @@
 package com.team.answer.activities;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,9 +50,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Home extends AppCompatActivity {
 
@@ -62,10 +68,13 @@ public class Home extends AppCompatActivity {
     public static boolean isDestroy;
     FirebaseDatabase database;
     DatabaseReference posts;
+    private FirebaseAnalytics mFirebaseAnalytics;
     HashMap<String, Teams> results;
     ArrayList<Teams> teamsList;
     RecyclerView recyclerView;
     static String teamname;
+    public static boolean isFrom;
+    PrimeThread T1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +94,6 @@ public class Home extends AppCompatActivity {
         macAddress = wInfo.getMacAddress();
         //------------------------------------------------------------//
 
-//        mDatabase = FirebaseDatabase.getInstance().getReference();
-//        writeNewUser(String.valueOf(StartGame.frmButton),macAddress);
 
         database = FirebaseDatabase.getInstance();
         posts = database.getReference("teams");
@@ -107,15 +114,6 @@ public class Home extends AppCompatActivity {
                 }
                 List<Teams> posts = new ArrayList<>(results.values());
 
-
-                Set uniqueEntries = new HashSet();
-                for (Iterator iter = posts.iterator(); iter.hasNext(); ) {
-                    Object element = iter.next();
-                    if (!uniqueEntries.add(element)) // if current element is a duplicate,
-                        iter.remove();                 // remove it
-                }
-
-                JSONArray jsArray = new JSONArray(posts);
                 for (int i = 0; i < posts.size(); i++) {
                     Teams teams1 = new Teams();
                     String teamId = posts.get(i).getTeamId();
@@ -132,14 +130,19 @@ public class Home extends AppCompatActivity {
                     teams1.setTeamId(teamId);
                     teamsList.add(teams1);
 
-                    for (int j = 0; j < teamsList.size(); j++) {
-                        if (teamsList.get(j).getTeamId().equals(String.valueOf(StartGame.frmButton))) {
-                            teamsList.remove(j);
-                        }
+                }
+
+                for (int j = 0; j < teamsList.size(); j++) {
+                    if (teamsList.get(j).getTeamId().equals(String.valueOf(StartGame.frmButton))) {
+                        teamsList.remove(j);
+                        Log.e("eeee", "clear");
                     }
                 }
-                recyclerView.setAdapter(new TeamAdapter(Home.this, teamsList));
+
+                TeamAdapter teamAdapter = new TeamAdapter(Home.this, teamsList);
+                recyclerView.setAdapter(teamAdapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(Home.this, LinearLayoutManager.VERTICAL, false));
+                teamAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -172,7 +175,14 @@ public class Home extends AppCompatActivity {
 //        });
 //
 //        pusher.connect();
-//ؤخةةثىف
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, teams.getTeamId());
+//        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, teams.getTeamName());
+        // bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
         if (StartGame.frmButton == 1) {
             teamName.setText("الفريق الاصفر");
@@ -184,23 +194,100 @@ public class Home extends AppCompatActivity {
             teamName.setText("الفريق الازرق");
         }
 
+
+
+
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (teamsList.size() < 4) {
-                  //  Toast.makeText(Home.this, "برجاء انتظار باقي الفرق", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Home.this,GameHome.class));
-                    finish();
-                }else {
-                    startActivity(new Intent(Home.this,GameHome.class));
-                    finish();
-                }
+
             }
         });
         //    sendMacAddress();
 
 
+//        Thread thread = new Thread() {
+//            @Override
+//            public void run() {
+//                try {
+//                    Thread.sleep(30000);
+//                } catch (InterruptedException e) {
+//                }
+//
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//
+//
+//                    }
+//                });
+//            }
+//        };
+//        thread.start();
+//
+//        new CountDownTimer(1000, 100) {
+//
+//            public void onTick(long millisUntilFinished) {
+//                // implement whatever you want for every tick
+//            }
+//
+//            public void onFinish() {
+//
+//            }
+//        }.start();
+        T1=new PrimeThread();
+        T1.start();
+
+                class CheckUpdate extends TimerTask {
+            public void run() {
+                if (isFrom){
+                    T1.stopRunning();
+                    isFrom=false;
+                }
+            }
+        }
+
+// And From your main() method or any other method
+        Timer timer = new Timer();
+        timer.schedule(new CheckUpdate(), 0, 5000);
     }
+
+    class PrimeThread extends Thread {
+
+        boolean running = false;
+
+        public void run() {
+            running = true;
+
+            Home.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                    if (teamsList.size() < 4) {
+                        Log.e("waiting", "waiting...");
+                    } else {
+
+                        startActivity(new Intent(Home.this, GameHome.class));
+                        finish();
+                        interrupt();
+                        stopRunning();
+                        isFrom = true;
+                    }
+                }
+            });
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        public void stopRunning() {
+            running = false;
+        }
+    }
+
 
     private void sendMacAddress() {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://ahmedgame.comeze.com/game/index.php/question/online", new Response.Listener<String>() {
