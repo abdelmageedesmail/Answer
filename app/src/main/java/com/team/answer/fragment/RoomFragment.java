@@ -171,16 +171,16 @@ public class RoomFragment extends Fragment {
                 queData.setChoice4(choice4);
                 queData.setAnswer(answer);
                 queData.setLevel(level);
-
-                if (jsonObject1.getString("correct_choice").equals(" الإختيار الأول")){
-                    correctAnswer=answer1.getText().toString();
-                }else if (jsonObject1.getString("correct_choice").equals(" الإختيار الثاني")){
-                    correctAnswer=answer2.getText().toString();
-                }else if (jsonObject1.getString("correct_choice").equals(" الإختيار الثالث")){
-                    correctAnswer=answer3.getText().toString();
-                }else if (jsonObject1.getString("correct_choice").equals(" الإختيار الرابع")){
-                    correctAnswer=answer4.getText().toString();
-                }
+//
+//                if (level.equals("الإختيار الأول")){
+//                    correctAnswer=answer1.getText().toString();
+//                }else if (level.equals("الإختيار الثاني")){
+//                    correctAnswer=answer2.getText().toString();
+//                }else if (level.equals("الإختيار الثالث")){
+//                    correctAnswer=answer3.getText().toString();
+//                }else if (level.equals("الإختيار الرابع")){
+//                    correctAnswer=answer4.getText().toString();
+//                }
                 arrayList.add(queData);
 
 
@@ -331,7 +331,7 @@ public class RoomFragment extends Fragment {
                         answer1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                if (arrayList.get(i).getAnswer().equals(correctAnswer)){
+                                if (arrayList.get(i).getAnswer().equals(answer1.getText().toString())){
                                     checkAnswer(arrayList.get(i).getAnswer(),answer1.getText().toString(),answer1);
                                     imageTrue.setImageResource(R.drawable.correct);
                                     interrupt();
@@ -345,7 +345,7 @@ public class RoomFragment extends Fragment {
                         answer2.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                if (arrayList.get(i).getAnswer().equals(correctAnswer)){
+                                if (arrayList.get(i).getAnswer().equals(answer2.getText().toString())){
                                     checkAnswer(arrayList.get(i).getAnswer(),answer2.getText().toString(),answer2);
                                     imageTrue.setImageResource(R.drawable.correct);
                                     interrupt();
@@ -358,7 +358,7 @@ public class RoomFragment extends Fragment {
                         answer3.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                if (arrayList.get(i).getAnswer().equals(correctAnswer)){
+                                if (arrayList.get(i).getAnswer().equals(answer3.getText().toString())){
                                     checkAnswer(arrayList.get(i).getAnswer(),answer3.getText().toString(),answer3);
                                     imageTrue.setImageResource(R.drawable.correct);
                                 }else {
@@ -369,7 +369,7 @@ public class RoomFragment extends Fragment {
                         answer4.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                if (arrayList.get(i).getAnswer().equals(correctAnswer)){
+                                if (arrayList.get(i).getAnswer().equals(answer4.getText().toString())){
                                     checkAnswer(arrayList.get(i).getAnswer(),answer4.getText().toString(),answer4);
                                     imageTrue.setImageResource(R.drawable.correct);
                                 }else {
