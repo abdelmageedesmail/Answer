@@ -172,13 +172,13 @@ public class RoomFragment extends Fragment {
                 queData.setAnswer(answer);
                 queData.setLevel(level);
 
-                if (answer.equals("الإختيار الأول")){
+                if (jsonObject1.getString("correct_choice").equals(" الإختيار الأول")){
                     correctAnswer=answer1.getText().toString();
-                }else if (answer.equals("الإختيار الثاني")){
+                }else if (jsonObject1.getString("correct_choice").equals(" الإختيار الثاني")){
                     correctAnswer=answer2.getText().toString();
-                }else if (answer.equals("الإختيار الثالث")){
+                }else if (jsonObject1.getString("correct_choice").equals(" الإختيار الثالث")){
                     correctAnswer=answer3.getText().toString();
-                }else if (answer.equals("الإختيار الرابع")){
+                }else if (jsonObject1.getString("correct_choice").equals(" الإختيار الرابع")){
                     correctAnswer=answer4.getText().toString();
                 }
                 arrayList.add(queData);
