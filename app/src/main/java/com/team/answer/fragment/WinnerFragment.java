@@ -3,9 +3,11 @@ package com.team.answer.fragment;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.team.answer.R;
+import com.team.answer.activities.Home;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,6 +32,7 @@ import org.json.JSONObject;
 public class WinnerFragment extends DialogFragment{
     private ImageView mImg;
     private TextView mText;
+    private Button mBtn;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -37,9 +41,16 @@ public class WinnerFragment extends DialogFragment{
         View view = inflater.inflate(R.layout.winner_team, null);
         mImg = (ImageView) view.findViewById(R.id.imageView);
         mText = (TextView) view.findViewById(R.id.textView);
+        mBtn = (Button) view.findViewById(R.id.button);
         GlideDrawableImageViewTarget target = new GlideDrawableImageViewTarget(mImg);
         Glide.with(getActivity()).load(R.raw.winer).into(target);
         getWinner();
+        mBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), Home.class));
+            }
+        });
 
 
         return builder.create();
