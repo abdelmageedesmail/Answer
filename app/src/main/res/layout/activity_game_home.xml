@@ -22,6 +22,10 @@
         android:id="@+id/containerLayout"
         android:orientation="vertical"
         android:layout_margin="10dp"
-        android:background="@color/colorAccent"/>
+        android:background="@color/colorAccent">
+        <include layout="@layout/room_fragment"></include>
+
+
+    </LinearLayout>>
 
 </LinearLayout>

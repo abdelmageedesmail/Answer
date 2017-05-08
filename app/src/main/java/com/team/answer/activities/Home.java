@@ -7,6 +7,7 @@ import android.graphics.PorterDuff;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.CountDownTimer;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -47,6 +48,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -97,6 +99,7 @@ public class Home extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         posts = database.getReference("teams");
+
         final Teams teams = new Teams();
         teams.setTeamId(String.valueOf(StartGame.frmButton));
         teams.setMacAddress(macAddress);
@@ -109,10 +112,18 @@ public class Home extends AppCompatActivity {
 
                 if (dataSnapshot.exists()) {
                     results = dataSnapshot.getValue(new GenericTypeIndicator<HashMap<String, Teams>>() {
+
                     });
 
                 }
+
+
+
                 List<Teams> posts = new ArrayList<>(results.values());
+                HashSet<Teams> teamsHashSet1 = new HashSet<>();
+                teamsHashSet1.addAll(posts);
+                posts.clear();
+                posts.addAll(teamsHashSet1);
 
                 for (int i = 0; i < posts.size(); i++) {
                     Teams teams1 = new Teams();
@@ -126,20 +137,16 @@ public class Home extends AppCompatActivity {
                     } else if (teamId.equals("4")) {
                         teamname = "الفريق الازرق";
                     }
+
                     teams1.setTeamName(teamname);
                     teams1.setTeamId(teamId);
                     teamsList.add(teams1);
-
                 }
 
-                for (int j = 0; j < teamsList.size(); j++) {
-                    if (teamsList.get(j).getTeamId().equals(String.valueOf(StartGame.frmButton))) {
-                        teamsList.remove(j);
-                        Log.e("eeee", "clear");
-                    }
-                }
+
 
                 TeamAdapter teamAdapter = new TeamAdapter(Home.this, teamsList);
+
                 recyclerView.setAdapter(teamAdapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(Home.this, LinearLayoutManager.VERTICAL, false));
                 teamAdapter.notifyDataSetChanged();
@@ -264,7 +271,12 @@ public class Home extends AppCompatActivity {
                 public void run() {
 
                     if (teamsList.size() < 4) {
-                        Log.e("waiting", "waiting...");
+                     //   Log.e("waiting", "waiting...");
+                        startActivity(new Intent(Home.this, GameHome.class));
+                        finish();
+                        interrupt();
+                        stopRunning();
+                        isFrom = true;
                     } else {
 
                         startActivity(new Intent(Home.this, GameHome.class));

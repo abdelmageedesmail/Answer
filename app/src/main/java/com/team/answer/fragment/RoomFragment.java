@@ -1,5 +1,6 @@
 package com.team.answer.fragment;
 
+import android.app.DialogFragment;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +9,9 @@ import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.app.DialogFragment;
+
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.ThemedSpinnerAdapter;
@@ -21,6 +25,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -43,7 +48,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -68,6 +75,8 @@ public class RoomFragment extends Fragment {
     String correctAnswer;
     ArrayList<QueData> arrayList;
     PrimeThread T1;
+    private int mHighScore=0;
+
     public RoomFragment() {
 
     }
@@ -93,7 +102,7 @@ public class RoomFragment extends Fragment {
         answer2 = (Button) v.findViewById(R.id.answer2);
         answer3 = (Button) v.findViewById(R.id.answer3);
         answer4 = (Button) v.findViewById(R.id.answer4);
-        imageTrue=(ImageView) v.findViewById(R.id.imageTrue);
+       // imageTrue=(ImageView) v.findViewById(R.id.imageTrue);
         UtilitiesClass.setFont(mQuestion, getActivity(), 0);
         UtilitiesClass.setFont(answer1, getActivity(), 0);
         UtilitiesClass.setFont(answer2, getActivity(), 0);
@@ -388,6 +397,8 @@ public class RoomFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
+            sendResults();
+            getWinner();
 
 
 //            i++;
@@ -396,6 +407,38 @@ public class RoomFragment extends Fragment {
             // }
         }
 
+        private void getWinner() {
+
+            DialogFragment winnerFragment = new WinnerFragment();
+            winnerFragment.show(getActivity().getFragmentManager(),"winner");
+        }
+
+
+
+        private void sendResults() {
+            StringRequest request = new StringRequest(Request.Method.POST, "http://ahmedgame.comeze.com/game/index.php/question/get_winner_team", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            }) {
+
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    HashMap<String, String> map = new HashMap<>();
+
+                    map.put("team_id", StartGame.frmButton + "");
+                    map.put("high_score", mHighScore + "");
+                    return map;
+                }
+            };
+            Volley.newRequestQueue(getActivity()).add(request);
+        }
 
 
         public void stopRunning() {
@@ -495,17 +538,20 @@ public class RoomFragment extends Fragment {
             if (team == 1) {
                 scoret1++;
                 score1.setText("" + scoret1);
-
+                mHighScore=scoret1;
 
             } else if (team == 2) {
                 scoret2++;
                 score2.setText("" + scoret2);
+                mHighScore=scoret2;
             } else if (team == 3) {
                 scoret3++;
                 score3.setText("" + scoret3);
+                mHighScore=scoret3;
             } else if (team == 4) {
                 scoret4++;
                 score4.setText("" + scoret4);
+                mHighScore=scoret4;
             }
         } else {
             // fault answer here
