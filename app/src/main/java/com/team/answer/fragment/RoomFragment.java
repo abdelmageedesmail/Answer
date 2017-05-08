@@ -416,7 +416,7 @@ public class RoomFragment extends Fragment {
 
 
         private void sendResults() {
-            StringRequest request = new StringRequest(Request.Method.POST, "http://ahmedgame.comeze.com/game/index.php/question/get_winner_team", new Response.Listener<String>() {
+            StringRequest request = new StringRequest(Request.Method.POST, "http://ahmedgame.comeze.com/game/index.php/question/high_score", new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
 
